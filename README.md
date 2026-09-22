@@ -65,9 +65,10 @@ library list and a UIKit + XIB player screen, wired together with MVVM.
 - A player-side network/audio failure (e.g. a dead `audio_url`) shows an
   alert and leaves the play button disabled for that session; it never
   takes down the app.
-- No force unwraps (`!`) outside of the IUO-free `@IBOutlet` pattern isn't
-  used — all outlets are declared as plain optionals and accessed via
-  optional chaining.
+- No force unwraps (`!`) anywhere in app code: `@IBOutlet`s are declared as
+  plain optionals (not the usual `!` IUOs) and accessed via optional
+  chaining, and the fixed endpoint URL is built with `guard let` +
+  `preconditionFailure` rather than `URL(string:)!`.
 
 ## Trade-offs / what I'd do differently with more time
 
