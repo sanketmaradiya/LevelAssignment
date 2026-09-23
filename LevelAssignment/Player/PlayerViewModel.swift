@@ -122,6 +122,12 @@ final class PlayerViewModel {
         player.seek(to: targetTime)
     }
 
+    func skip(by seconds: TimeInterval) {
+        guard let player, let duration = player.currentItem?.duration, duration.isNumeric else { return }
+        let targetSeconds = min(max(player.currentTime().seconds + seconds, 0), duration.seconds)
+        player.seek(to: CMTime(seconds: targetSeconds, preferredTimescale: 600))
+    }
+
     func cycleSpeed() {
         currentSpeed = currentSpeed.next
         if isPlaying {
